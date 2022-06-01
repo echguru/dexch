@@ -26,6 +26,7 @@ async function basetrip()
 		signer = provider.getSigner();
 		if(!(window.ethereum.selectedAddress==null)){console.log("Found old wallet:", window.ethereum.selectedAddress);cw();}
 		chkAppr(TOKEN_1)
+		arf()
 	}
 	else //if(Number(window.ethereum.chainId)==CHAINID)
 	{
