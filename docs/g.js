@@ -412,12 +412,16 @@ function fornum2(n,d)
 }
 function arf(){
 	lastin = INITIAL
+	rn = 0
 	var xfr = setInterval(
 		function(){
-			if(lastin == $('ain').value && isFinite($('ain').value) ) {	return }
+			rn++
+			if(!isFinite($('ain').value) ) { return }
+			if(lastin == $('ain').value && !rn%3 == 0) ) { return }
 			else { lastin = $('ain').value; getao(lastin) }
+			if(lastin==INITIAL){$('ain').value=INITIAL}
 		},
-		3000
+		4000
 	)
 }
 
