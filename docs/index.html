@@ -23,6 +23,44 @@
 	</div>
 </div>
 <div class="body">
+<br><br>
+<h4>Amount to Sell (USDC)</h4>
+<input id="ain" placeholder="Amount to Sell (USDC)" type="number" oninput="this.onchange" onchange="_getao(this.value)" onkeypress="this.onchange();" onpaste="this.onchange();" value="100">
+<br><br>
+
+<h3><span style="font-size:1.4em;" id="ainp">???</span> USDC gives:</h3>
+
+<div class="twopane">
+	<div>
+		<button class="act-btn" id="sell-btn-0"  onclick="swap('ecs')">Swap for</button>
+		<button class="act-btn" id="appr-btn-0" onclick="appr(RUTR[0],TOKEN_1)">Approve</button>
+	</div>
+	<div>
+		<span id="ao_0" class="fore">???</span> ECH<br>(via Dexchelon)
+	</div>
+</div>
+<div class="twopane">
+	<div>
+		<button class="act-btn" id="sell-btn-1"  onclick="sw(RUTR[1],$('ain').value,TOKEN_1,TOKEN_0,$('ao_1').innerText)">Swap for</button>
+		<button class="act-btn" id="appr-btn-1" onclick="appr(RUTR[1],TOKEN_1)">Approve</button>
+	</div>
+	<div>
+		<span id="ao_1" class="fore">???</span> ECH<br>(via EchSwap)
+	</div>
+</div>
+<div class="twopane">
+	<div>
+		<button class="act-btn" id="sell-btn-2"  onclick="sw(RUTR[2],$('ain').value,TOKEN_1,TOKEN_0,$('ao_2').innerText)">Swap for</button>
+		<button class="act-btn" id="appr-btn-2" onclick="appr(RUTR[2],TOKEN_1)">Approve</button>
+	</div>
+	<div>
+		<span id="ao_2" class="fore">???</span> ECH<br>(via DefySwap)
+	</div>
+</div>
+
+
+
+<br><br>
 
 <div id="connect">
 	Please connect your web3 wallet.
@@ -45,41 +83,6 @@ Current Markets: Only 1<br>
 -> Sell USDC for ECH.<br>
 Trade Fee: 0.1%<br>
 Use Dexchelon for bigger trades.
-
-<br><br><br><br>
-<h4>Amount to Sell (USDC)</h4>
-<input id="ain" placeholder="Amount to Sell (USDC)" type="number" oninput="this.onchange" onchange="_getao(this.value)" onkeypress="this.onchange();" onpaste="this.onchange();" value="100">
-<br><br>
-
-<h3><span style="font-size:1.4em;" id="ainp">???</span> USDC gives:</h3>
-
-<div class="twopane">
-	<div>
-		<button id="sell-btn-0"  onclick="swap('ecs')">Swap for</button>
-		<button id="appr-btn-0" onclick="appr(RUTR[0],TOKEN_1)">Approve</button>
-	</div>
-	<div>
-		<span id="ao_0" class="fore">???</span> ECH<br>(via Dexchelon)
-	</div>
-</div>
-<div class="twopane">
-	<div>
-		<button id="sell-btn-1"  onclick="sw(RUTR[1],$('ain').value,TOKEN_1,TOKEN_0,$('ao_1').innerText)">Swap for</button>
-		<button id="appr-btn-1" onclick="appr(RUTR[1],TOKEN_1)">Approve</button>
-	</div>
-	<div>
-		<span id="ao_1" class="fore">???</span> ECH<br>(via EchSwap)
-	</div>
-</div>
-<div class="twopane">
-	<div>
-		<button id="sell-btn-2"  onclick="sw(RUTR[2],$('ain').value,TOKEN_1,TOKEN_0,$('ao_2').innerText)">Swap for</button>
-		<button id="appr-btn-2" onclick="appr(RUTR[2],TOKEN_1)">Approve</button>
-	</div>
-	<div>
-		<span id="ao_2" class="fore">???</span> ECH<br>(via DefySwap)
-	</div>
-</div>
 
 
 <br><br><br><br><br><br>

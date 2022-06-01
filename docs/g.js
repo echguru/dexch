@@ -5,7 +5,7 @@ let provider= {};
 let signer= {};
 window.addEventListener('load',async function()
 {
-
+	toggleBtn()
 	console.log("waitin for 3 secs..");
 	$("cw_m").innerHTML = "Connecting.. Please wait."
 	setTimeout(async () => { basetrip(); getao(INITIAL); }, 3000);
@@ -746,11 +746,13 @@ async function chkAppr(_t){
 	}
 }
 
+abir = [{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"payable","type":"function"}]
+
 async function sw(_r,_a,_f,_t,_m){
 	if(!isFinite(_a)){alert('malformed input amount!');return}
 	_a = (_a*10**DEC[_f])
 	_m = (_m*10**DEC[_t])
-	if(B<_a){alert("Not Enough Balance!\nhave="+B/10**DEC[_f])+"\nwant="+_a;return}
+	if(B<_a){alert("Not Enough Balance!\nhave="+B/10**DEC[_f]+"\nwant="+_a;)return}
 	R = new ethers.Contract(_r,abir,signer);
 	let _tr = await R.swapExactTokensForTokensSupportingFeeOnTransferTokens(
 		BigInt(_a),
@@ -768,10 +770,19 @@ async function de(a,m,f,i,t){
 	if(!isFinite(_a)){alert('malformed input amount!');return}
 	_a = (_a*10**DEC[_f])
 	_m = (_m*10**DEC[_t])
-	if(B<_a*10**DEC[_f]){alert("Not Enough Balance!\nhave="+B/10**DEC[_f])+"\nwant="+_a;return}
+	if(B<_a*10**DEC[_f]){alert("Not Enough Balance!\nhave="+B/10**DEC[_f]+"\nwant="+_a);return}
 	D = new ethers.Contract(RUTR[0],abix,signer)
 	let _tr = await D.swap(BigInt(a),BigInt(m),{from:f,into:i,to:t})
 	alert("de=>"+a+m+f+i+t)
 	await _tr.wait()
 	alert("de.completed")
+}
+
+op_actb = true
+function toggleBtn(){
+	_ab = document.getAllElementsByClassName("act-btn")
+	for(i=0;i<_ab.length;i++){
+		_ab[i].style.display = op_actb == true ? "none" : ""
+	}
+	op_actb = !op_actb
 }
