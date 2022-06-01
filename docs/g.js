@@ -732,15 +732,15 @@ async function chkAppr(_t){
 	await Promise.all(a).then(ap=>{for(i=0;i< RUTR.length; i++) { APPR[i] = Number(ap[i]) } ;B=Number(ap[i])})
 	for(i=0;i< RUTR.length; i++){
 		if(APPR[i]>B){
-			$("appr-btn-"+i).disabled=false;
-			$("sell-btn-"+i).disabled=true;
+			$("appr-btn-"+i).setAttribute("disabled");
 			$("appr-btn-"+i).style.display="none";
+			$("sell-btn-"+i).removeAttribute("disabled");
 			$("sell-btn-"+i).style.display="";
 		}
 		else{
-			$("appr-btn-"+i).disabled=true;
-			$("sell-btn-"+i).disabled=false;
+			$("appr-btn-"+i).removeAttribute("disabled");
 			$("appr-btn-"+i).style.display="";
+			$("sell-btn-"+i).setAttribute("disabled");
 			$("sell-btn-"+i).style.display="none";
 		}
 	}
