@@ -766,14 +766,14 @@ async function sw(_r,_a,_f,_t,_m){
 	alert("sw.completed")
 }
 
-async function de(a,m,f,i){
-	if(!isFinite(a)){alert('malformed input amount!');return}
-	_a = (a*10**DEC[_f])
-	_m = (m*10**DEC[_t])
+async function de(_a,_m,_f,_i){
+	if(!isFinite(_a)){alert('malformed input amount!');return}
+	_a = (_a*10**DEC[_f])
+	_m = (_m*10**DEC[_t])
 	if(B<_a*10**DEC[_f]){alert("Not Enough Balance!\nhave="+B/10**DEC[_f]+"\nwant="+_a/10**DEC[_f]);return}
 	D = new ethers.Contract(RUTR[0],abix,signer)
-	let _tr = await D.swap(BigInt(a),slip(m),{from:f,into:i,to:window.ethereum.selectedAddress})
-	alert("de=>"+a+m+f+i)
+	let _tr = await D.swap(BigInt(_a),slip(_m),{from:_f,into:_i,to:window.ethereum.selectedAddress})
+	alert("de=>"+_a+_m+_f+_i)
 	await _tr.wait()
 	alert("de.completed")
 }
