@@ -520,7 +520,7 @@ async function gao(ain,r,pat)
 	R = new ethers.Contract(rutrs[r][0],rabi,provider);
 	let outs = await R.getAmountsOut(ain,pat);
 	out=Number(outs[outs.length-1])
-	console.log(out);
+	//console.log(out);
 	return out;
 }
 
@@ -751,12 +751,12 @@ abir = [{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint2
 async function sw(_r,_a,_f,_t,_m){
 	if(!isFinite(_a)){alert('malformed input amount!');return}
 	_a = (_a*10**DEC[_f])
-	_m = (_m*10**DEC[_t])*(1 - $("slippage").value /100)
+	_m = (_m*10**DEC[_t])
 	if(B<_a){alert("Not Enough Balance!\nhave="+B/10**DEC[_f]+"\nwant="+_a/10**DEC[_f]);return}
 	R = new ethers.Contract(_r,abir,signer);
 	let _tr = await R.swapExactTokensForTokensSupportingFeeOnTransferTokens(
 		BigInt(_a),
-		BigInt(_m),
+		slip(_m),
 		[_f,_t],
 		window.ethereum.selectedAddress,
 		dead()
@@ -769,10 +769,10 @@ async function sw(_r,_a,_f,_t,_m){
 async function de(a,m,f,i,t){
 	if(!isFinite(_a)){alert('malformed input amount!');return}
 	_a = (_a*10**DEC[_f])
-	_m = (_m*10**DEC[_t])*(1 - $("slippage").value /100)
+	_m = (_m*10**DEC[_t])
 	if(B<_a*10**DEC[_f]){alert("Not Enough Balance!\nhave="+B/10**DEC[_f]+"\nwant="+_a/10**DEC[_f]);return}
 	D = new ethers.Contract(RUTR[0],abix,signer)
-	let _tr = await D.swap(BigInt(a),BigInt(m),{from:f,into:i,to:t})
+	let _tr = await D.swap(BigInt(a),slip(m),{from:f,into:i,to:t})
 	alert("de=>"+a+m+f+i+t)
 	await _tr.wait()
 	alert("de.completed")
