@@ -414,9 +414,10 @@ function arf(){
 	var xfr = setInterval(
 		function(){
 			if(!isFinite($('ain').value) ) { return }
+			if($('ain').value == "" ) { $('ain').value=INITIAL }
 			getao($('ain').value)
 		},
-		4000
+		10000
 	)
 }
 

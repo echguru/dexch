@@ -147,10 +147,11 @@ button:active {
 .twopane button{
   margin: 15px;
 }
-
+/*
 #sell-btn-0,
 #sell-btn-1,
 #sell-btn-2 {display:none}
+*/
 @media(min-width:641px){
   .panels{
     display: grid;
