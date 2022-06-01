@@ -730,7 +730,7 @@ DEC = {
 
 
 async function appr(_r,_t){
-	T = new ethers.Contract(_t,abia,provider);
+	T = new ethers.Contract(_t,abia,signer);
 	let _tr = await T.approve(_r,ethers.constants.MaxUint256);
 	alert("appr=>"+_r+_t)
 	await _tr.wait()
