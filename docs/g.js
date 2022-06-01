@@ -11,14 +11,13 @@ window.addEventListener('load',async function()
 	setTimeout(async () => { basetrip(); getao(INITIAL); }, 3000);
 }, false);
 
+
 async function basetrip()
 {
 //if(window.ethereum&&Number(window.ethereum.chainId)==250){web3 = new Web3(web3.currentProvider);if(!(window.ethereum.selectedAddress==null)){cw()}}
 
-	if(!(window.ethereum)){$("cw_m").innerHTML = "Wallet wasn't detected!";console.log("Wallet wasn't detected!");provider = new ethers.providers.JsonRpcProvider(RPC_URL);
-	//DrefreshFarm();
-	pantvl();return}
-	else if(!Number(window.ethereum.chainId)==CHAINID){$("cw_m").innerHTML = "Wrong network! Please Switch to "+CHAINID;provider = new ethers.providers.Web3Provider(window.ethereum);DrefreshFarm();pantvl();return}
+	if(!(window.ethereum)){$("cw_m").innerHTML = "Wallet wasn't detected!";console.log("Wallet wasn't detected!");provider = new ethers.providers.JsonRpcProvider(RPC_URL);;pantvl();return}
+	else if(!Number(window.ethereum.chainId)==CHAINID){$("cw_m").innerHTML = "Wrong network! Please Switch to "+CHAINID;provider = new ethers.providers.Web3Provider(window.ethereum);;pantvl();return}
 	else if(//typeOf window.ethereum == Object &&Number(window.ethereum.chainId)
 		Number(window.ethereum.chainId)==CHAINID)
 	{
@@ -26,6 +25,7 @@ async function basetrip()
 		provider = new ethers.providers.Web3Provider(window.ethereum)
 		signer = provider.getSigner();
 		if(!(window.ethereum.selectedAddress==null)){console.log("Found old wallet:", window.ethereum.selectedAddress);cw();}
+		chkAppr(TOKEN_1)
 	}
 	else //if(Number(window.ethereum.chainId)==CHAINID)
 	{
@@ -35,11 +35,29 @@ async function basetrip()
 		signer = provider.getSigner()
 		$("connect").innerHTML=`Wallet not found.<br><br><button onclick="window.location.reload()" id="btn-connect">Retry?</button>`;
 	}
+	if(Number(window.ethereum.chainId) != null &&(window.ethereum.chainId!=CHAINID))
+	{
+		window.ethereum.request({
+    	method: "wallet_addEthereumChain",
+    	params: [{
+        	chainId: "0xbb8",
+        	rpcUrls: ["https://rpc.ech.network","https://evm.ech.network"],
+        	chainName: "Echelon",
+        	nativeCurrency: {
+            	name: "ECH",
+            	symbol: "ECH",
+            	decimals: 18
+        	},
+        	blockExplorerUrls: ["https://scout.ech.network","https://explorer.ech.network","https://scan.ech.guru"]
+    		}]
+		});
+	}
 	//DrefreshFarm()
 	pantvl()
 	//arf()
-	//getao(100e18)
 }
+
+
 async function pantvl()
 {
 	tabi = [{"constant": true,"inputs": [],"name": "tvl","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"}]
@@ -290,6 +308,35 @@ ab1=
 		"type": "function"
 	}
 ];
+
+abia = [
+{
+	"constant": false,
+	"inputs": [
+		{
+		"internalType": "address",
+		"name": "spender",
+		"type": "address"
+		},
+		{
+		"internalType": "uint256",
+		"name": "value",
+		"type": "uint256"
+		}
+	],
+	"name": "approve",
+	"outputs": [
+		{
+		"internalType": "bool",
+		"name": "",
+		"type": "bool"
+		}
+	],
+	"payable": false,
+	"stateMutability": "nonpayable",
+	"type": "function"
+	}
+]
 async function cw()
 {
 	let cs = await cw2(); cs?console.log("Good to Transact"):cw2()
@@ -490,10 +537,11 @@ async function gao(ain,r,pat)
 	return out;
 }
 
+async function _getao(ain) { await getao(ain)}
 async function getao(ain)
 {
 	ain = Number(ain)
-	$("ainp").innerHTML = ain.toFixed(5)
+	$("ainp").innerHTML = ain.toFixed(2)
 	$("ao_0").innerHTML = "???"
 	$("ao_1").innerHTML = "???"
 	$("ao_2").innerHTML = "???"
@@ -682,7 +730,7 @@ DEC = {
 
 
 async function appr(_r,_t){
-	T = new ethers.Contract(_t,abit,provider);
+	T = new ethers.Contract(_t,abia,provider);
 	let _tr = await T.approve(_r,ethers.constants.MaxUint256);
 	alert("appr=>"+_r+_t)
 	await _tr.wait()
