@@ -780,7 +780,7 @@ async function de(a,m,f,i,t){
 
 op_actb = true
 function toggleBtn(){
-	_ab = document.getAllElementsByClassName("act-btn")
+	_ab = document.getElementsByClassName("act-btn")
 	for(i=0;i<_ab.length;i++){
 		_ab[i].style.display = op_actb == true ? "none" : ""
 	}
