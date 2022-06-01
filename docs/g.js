@@ -751,15 +751,15 @@ abir = [{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint2
 async function sw(_r,_a,_f,_t,_m){
 	if(!isFinite(_a)){alert('malformed input amount!');return}
 	_a = (_a*10**DEC[_f])
-	_m = (_m*10**DEC[_t])
-	if(B<_a){alert("Not Enough Balance!\nhave="+B/10**DEC[_f]+"\nwant="+_a);return}
+	_m = (_m*10**DEC[_t])*(1 - $("slippage").value /100)
+	if(B<_a){alert("Not Enough Balance!\nhave="+B/10**DEC[_f]+"\nwant="+_a/10**DEC[_f]);return}
 	R = new ethers.Contract(_r,abir,signer);
 	let _tr = await R.swapExactTokensForTokensSupportingFeeOnTransferTokens(
 		BigInt(_a),
 		BigInt(_m),
 		[_f,_t],
 		window.ethereum.selectedAddress,
-		(Date.now()/1e3 + $("deadline").value*3600).toFixed()
+		dead()
 	)
 	alert("sw=>"+_r+_a+_f+_t+_m)
 	await _tr.wait()
@@ -769,8 +769,8 @@ async function sw(_r,_a,_f,_t,_m){
 async function de(a,m,f,i,t){
 	if(!isFinite(_a)){alert('malformed input amount!');return}
 	_a = (_a*10**DEC[_f])
-	_m = (_m*10**DEC[_t])
-	if(B<_a*10**DEC[_f]){alert("Not Enough Balance!\nhave="+B/10**DEC[_f]+"\nwant="+_a);return}
+	_m = (_m*10**DEC[_t])*(1 - $("slippage").value /100)
+	if(B<_a*10**DEC[_f]){alert("Not Enough Balance!\nhave="+B/10**DEC[_f]+"\nwant="+_a/10**DEC[_f]);return}
 	D = new ethers.Contract(RUTR[0],abix,signer)
 	let _tr = await D.swap(BigInt(a),BigInt(m),{from:f,into:i,to:t})
 	alert("de=>"+a+m+f+i+t)
@@ -785,4 +785,16 @@ function toggleBtn(){
 		_ab[i].style.display = op_actb == true ? "none" : ""
 	}
 	op_actb = !op_actb
+}
+
+function dead(){
+	_d = Number($("dead").value)
+	if (! typeof _d == "number") {return 0}
+	return (Date.now()/1e3 + _d*60).toFixed()
+}
+function slip(_m){
+	_d = Number($("slip").value)
+	if (! typeof _d == "number") {return "dont"}
+	if (_d<0 || slip>50){_d=50}
+	return BigInt( Number(_m) * (1-_d/100))
 }
