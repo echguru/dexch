@@ -411,15 +411,10 @@ function fornum2(n,d)
 	return(n_);
 }
 function arf(){
-	lastin = INITIAL
-	rn = 0
 	var xfr = setInterval(
 		function(){
-			rn++
 			if(!isFinite($('ain').value) ) { return }
-			if(lastin == $('ain').value && rn%3 != 0) { return }
-			else { lastin = $('ain').value; getao(lastin) }
-			if(lastin==INITIAL){$('ain').value=INITIAL}
+			getao($('ain').value)
 		},
 		4000
 	)
