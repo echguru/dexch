@@ -767,7 +767,7 @@ async function sw(_r,_a,_f,_t,_m){
 }
 
 async function de(a,m,f,i){
-	if(!isFinite(_a)){alert('malformed input amount!');return}
+	if(!isFinite(a)){alert('malformed input amount!');return}
 	_a = (a*10**DEC[_f])
 	_m = (m*10**DEC[_t])
 	if(B<_a*10**DEC[_f]){alert("Not Enough Balance!\nhave="+B/10**DEC[_f]+"\nwant="+_a/10**DEC[_f]);return}
