@@ -752,7 +752,7 @@ async function sw(_r,_a,_f,_t,_m){
 	if(!isFinite(_a)){alert('malformed input amount!');return}
 	_a = (_a*10**DEC[_f])
 	_m = (_m*10**DEC[_t])
-	if(B<_a){alert("Not Enough Balance!\nhave="+B/10**DEC[_f]+"\nwant="+_a;)return}
+	if(B<_a){alert("Not Enough Balance!\nhave="+B/10**DEC[_f]+"\nwant="+_a);return}
 	R = new ethers.Contract(_r,abir,signer);
 	let _tr = await R.swapExactTokensForTokensSupportingFeeOnTransferTokens(
 		BigInt(_a),
