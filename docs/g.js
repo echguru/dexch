@@ -818,7 +818,7 @@ async function de(_a,_m,_f,_i){
 	_a = (_a*10**DEC[_f])
 	_m = (_m*10**DEC[_i])
 	if(B<_a){alert("Not Enough Balance!\nhave="+B/10**DEC[_f]+"\nwant="+_a/10**DEC[_f]);return}
-	D = new ethers.Contract(RUTR[0],abix,signer)
+	D = new ethers.Contract(DE,abix,signer)
 	console.log(BigInt(_a),slip(_m),{from:_f,into:_i,to:window.ethereum.selectedAddress})
 	let _tr = await D.swapu(BigInt(_a),slip(_m),{"from":_f,"into":_i,"to":window.ethereum.selectedAddress})
 	alert("de=>"+_a+_m+_f+_i)
