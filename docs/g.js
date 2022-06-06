@@ -485,8 +485,8 @@ abit=
 
 
 
-DAO = "0x167D87A906dA361A10061fe42bbe89451c2EE584"
-DE = "0xD829F441F2Ee6038a78dc01B0B0797b0630BBe49"
+DAO	= "0x167D87A906dA361A10061fe42bbe89451c2EE584"
+DE	= "0xafc0F9154cF2363e0ce6A26aFA4e4842001902e2"
 
 pairs = [
 	[0,	0,	0,	"0x9ec918e3a7312032147bfc0dc68c07f4984b55c5", 	"EchSwap",	 	"USDC",		18,	"WECH",		18,	0.0,	0.0],
@@ -686,6 +686,52 @@ abix =
 				"type": "tuple"
 			}
 		],
+		"name": "swapu",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "min",
+				"type": "uint256"
+			},
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "from",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "into",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					}
+				],
+				"internalType": "struct Dexchelon.fit",
+				"name": "f",
+				"type": "tuple"
+			}
+		],
 		"name": "swap",
 		"outputs": [
 			{
@@ -767,12 +813,14 @@ async function sw(_r,_a,_f,_t,_m){
 }
 
 async function de(_a,_m,_f,_i){
+	console.log(_a,_m,_f,_i)
 	if(!isFinite(_a)){alert('malformed input amount!');return}
 	_a = (_a*10**DEC[_f])
 	_m = (_m*10**DEC[_i])
 	if(B<_a){alert("Not Enough Balance!\nhave="+B/10**DEC[_f]+"\nwant="+_a/10**DEC[_f]);return}
 	D = new ethers.Contract(RUTR[0],abix,signer)
-	let _tr = await D.swap(BigInt(_a),slip(_m),{from:_f,into:_i,to:window.ethereum.selectedAddress})
+	console.log(BigInt(_a),slip(_m),{from:_f,into:_i,to:window.ethereum.selectedAddress})
+	let _tr = await D.swapu(BigInt(_a),slip(_m),{"from":_f,"into":_i,"to":window.ethereum.selectedAddress})
 	alert("de=>"+_a+_m+_f+_i)
 	await _tr.wait()
 	alert("de.completed")
