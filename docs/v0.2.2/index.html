@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<meta charset="UTF-8">
+<head>
+<meta name="description" content="Dexchelon - Capital Efficient DEX Aggregator on Echelon! Powered by Guru Network (🦾, 🚀)">
+<meta name="keywords" content="DEX, Aggregator, Decentralized, Finance, defi, Guru Network, Echelon, ECH">
+<title>DEXCHELON - ECH.guru</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="https://ftm.guru/icons/echguru.png"/>
+<link rel="stylesheet" href="g.css">
+</head>
+<body>
+<div class="topbar">
+	<a href=""><img src="https://ftm.guru/icons/echguru.png" style="position: relative;top: 6px;border-radius: 6px;" width="36px">Dexchelon v0.2.2</a>
+	<a href="https://ECH.guru/GRAIN">Kompound</a>
+	<a href="https://charts.ECH.guru">Charts</a><br><br>
+	<a href="https://scan.ECH.guru">ECHscan</a>
+	<div class="lowerbar" align="center">
+		<a target="_blank" href="https://fmc.guru"><img src="https://ftm.guru/icons/mtv.png"></a>
+		<a target="_blank" href="https://kcc.guru"><img src="https://ftm.guru/icons/kcc.png"></a>
+		<a target="_blank" href="https://ftm.guru"><img src="https://ftm.guru/icons/ftm.svg"></a>
+		<a target="_blank" href="https://ech.guru"><img src="https://ftm.guru/icons/echelon.png"></a>
+	</div>
+</div>
+
+<br><br><br><br>
+<div class="outer">
+
+	<select onchange="pair(this.value)">
+		<option value="0">USDC to ECH</option>
+		<option value="1">ECH to USDC</option>
+	</select>
+
+
+
+	<br><br>
+
+	<div class="frame">
+
+		<div class="casing">
+			<input id="ain" placeholder="Amount to Sell" type="number" oninput="this.onchange" onchange="_getao(this.value)" onkeypress="this.onchange();" onpaste="this.onchange();" value="100">
+			<img id="img_in" src="https://ftm.guru/icons/usdc.svg">
+		</div>
+
+		⇢
+		<br>
+
+
+		<div class="casing">
+			<input id="ao_0" placeholder="Amount to Buy" type="number">
+			<img id="img_out" src="https://ftm.guru/icons/echelon.png">
+		</div>
+
+		<br>
+<!--
+		<div class="summary">
+			<span>Sell ⇢ </span> <span id="amt_in">10</span> <span id="smb_in">USDC</span>
+			<span>Buy ⇢ </span> <span id="amt_out">1337</span> <span id="smb_out">ECH</span>
+			<span>Min. ⇢ </span> <span id="amt_min">1337</span> <span id="smb_min">ECH</span>
+		</div>
+-->
+		<br>
+
+
+		<div class="call2a">
+			<button class="act-btn" id="appr-btn-0" onclick="appr(RUTR[0],TOKEN_1)">Approve</button>
+			<button class="act-btn" id="sell-btn-0"  onclick="de($('ain').value,$('ao_1').innerText,TOKEN_1,TOKEN_0)">Swap Now</button>
+		</div>
+
+	</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="body">
+<h2>-> Sell USDC for ECH.</h4>
+Trade Fee: 0.1%<br>
+Current Markets: Only 1<br><br>
+<br><br>
+<h4>Amount to Sell (USDC)</h4>
+<br><br>
+
+<h3><span style="font-size:1.4em;" id="ainp">???</span> USDC gives:</h3>
+
+<div class="twopane">
+	<div>
+		<button class="act-btn" id="sell-btn-0"  onclick="de($('ain').value,$('ao_1').innerText,TOKEN_1,TOKEN_0)">Swap for</button>
+		<button class="act-btn" id="appr-btn-0" onclick="appr(RUTR[0],TOKEN_1)">Approve</button>
+	</div>
+	<div>
+		<span id="ao_0_0" class="fore">???</span> ECH<br>(via Dexchelon)
+	</div>
+</div>
+<div class="twopane">
+	<div>
+		<button class="act-btn" id="sell-btn-1"  onclick="sw(RUTR[1],$('ain').value,TOKEN_1,TOKEN_0,$('ao_1').innerText)">Swap for</button>
+		<button class="act-btn" id="appr-btn-1" onclick="appr(RUTR[1],TOKEN_1)">Approve</button>
+	</div>
+	<div>
+		<span id="ao_1" class="fore">???</span> ECH<br>(via EchSwap)
+	</div>
+</div>
+<div class="twopane">
+	<div>
+		<button class="act-btn" id="sell-btn-2"  onclick="sw(RUTR[2],$('ain').value,TOKEN_1,TOKEN_0,$('ao_2').innerText)">Swap for</button>
+		<button class="act-btn" id="appr-btn-2" onclick="appr(RUTR[2],TOKEN_1)">Approve</button>
+	</div>
+	<div>
+		<span id="ao_2" class="fore">???</span> ECH<br>(via DefySwap)
+	</div>
+</div>
+
+
+
+<br><br>
+<span style="font-size:1.2em;" id="routedesc"></span>
+
+<br><br>
+
+<div id="connect">
+	Please connect your web3 wallet.
+	<br><br>
+	<button onclick="cw()" id="btn-connect">Connect</button>
+</div>
+	<br>
+	<span id="cw_m"></span><br>
+<div id="switch">
+	A web3 wallet is now connected.
+	<button onclick="cw()" id="btn-switch">Switch?</button>
+	<br>
+	<span id="cw"></span>
+</div>
+<br><br><br>
+<h3><input id="slip" type="number" value="2" step="0.1" style="width:50px"> % Slippage Tolerance</h3>
+<h3><input id="dead" type="number" value="5" step="1"  style="width:50px" > Deadline in Minutes</h3>
+<br><br><br>
+This is super experimental.<br>
+This is not a Fork.<br>
+Use it at your own risk!<br>
+
+
+<br><br><br><br><br><br>
+<hr class="hr1">
+<br><br><br><br><br><br>
+
+<div onclick="pantvl()">
+	<span style="font-size:2.5em;font-weight:bold" id="pantvl" class="fore"></span><sup style="font-size:1.2em;position:relative;top: -14px;">⟳</sup><br>
+	(Total Value Locked on ECH.guru)
+</div>
+
+<br><br>
+<div class="lowerbar">Powered by Guru Network.
+<br>
+	<a target="_blank" href="https://kcc.guru">KCC.guru</a>
+	<a target="_blank" href="https://ftm.guru">FTM.guru</a>
+	<a target="_blank" href="https://fmc.guru">FMC.guru</a>
+	<a target="_blank" href="https://fmc.guru">MTV.guru</a>
+	<br><br>
+	<a target="_blank" href="https://kcc.guru"><img src="https://ftm.guru/icons/kcc.png"></a>
+	<a target="_blank" href="https://mtv.guru"><img src="https://ftm.guru/icons/mtv.png"></a>
+	<a target="_blank" href="https://projects.fantom.network/project-detail/6125a8b6800c225308858b02"><img src="https://ftm.guru/icons/ftm.svg"></a>
+	<a target="_blank" href="https://fmc.guru"><img src="https://ftm.guru/icons/FMC.svg"></a>
+	<a target="_blank" href="https://ftm.guru"><img src="https://ftm.guru/icons/64.png"></a>
+	<a target="_blank" href="https://kcc.guru/casino"><img src="https://ftm.guru/icons/kucino.svg"></a>
+	<a target="_blank" href="https://medium.com/@ftm1337"><img src="https://ftm.guru/icons/medium.svg"></a>
+	<a target="_blank" href="https://www.coingecko.com/coins/elite-1337"><img src="https://ftm.guru/icons/gecko.svg"></a>
+	<a target="_blank" href="https://coinmarketcap.com/currencies/elite-1337"><img src="https://ftm.guru/icons/cmc.svg"></a>
+	<a target="_blank" href="https://defillama.com/protocol/ftmguru"><img src="https://ftm.guru/icons/defillama.svg"><img class="subimg" src="https://ftm.guru/icons/64.png"></a><a target="_blank" href="https://defillama.com/protocol/kccguru"><img src="https://ftm.guru/icons/defillama.svg"><img class="subimg" src="https://ftm.guru/icons/kucino.svg"></a><a target="_blank" href="https://defillama.com/protocol/ftmguru"><img src="https://ftm.guru/icons/nomics.svg"></a>
+</div>
+
+</div>
+<script>
+f_1_add = "0x974822c6fd06709709fbf880d29352ef19a7cf88";
+pairadd = "0x96fe46b20a99ff3ccd299c827898be70aeee9a9f";
+tearned	= "0xe8295999b43e79071e23e4c108959297a7643859";
+RPC_URL = "https://rpc.ech.network"
+CHAINID = 3000;
+DECIMAL = 18;
+decEARN = 18;
+TOKEN_0 = "0xadee5159f4f82a35b9068a6c810bdc6c599ba6a8"
+TOKEN_1 = "0xc42974d6554F9054265b477723C3f689d8699239"
+INITIAL = 100
+</script>
+<script src="https://ftm.guru/ethers-5.2.umd.min.js" type="application/javascript" defer="true"></script>
+<script src="g.js" type="application/javascript" defer="true"></script>
+</body>
+</html>
