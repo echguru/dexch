@@ -38,7 +38,7 @@ async function basetrip()
 	}
 	if(Number(window.ethereum.chainId) != null &&(window.ethereum.chainId!=CHAINID))
 	{
-		window.ethereum.request({
+		await window.ethereum.request({
     	method: "wallet_addEthereumChain",
     	params: [{
         	chainId: "0xbb8",
@@ -52,8 +52,7 @@ async function basetrip()
         	blockExplorerUrls: ["https://scout.ech.network","https://explorer.ech.network","https://scan.ech.guru"]
     		}]
 		});
-		//recurse: keep trippin'
-		basetrip()
+		window.location.reload
 	}
 	//DrefreshFarm()
 	pantvl()
