@@ -597,9 +597,10 @@ abix =
 async function appr(_r,_t){
 	T = new ethers.Contract(_t,abia,signer);
 	let _tr = await T.approve(_r,ethers.constants.MaxUint256);
-	alert("appr=>"+_r+_t)
+	alert("Sending transaction: Approving\nToken: "+_t+"\nTxn.hash: "+_tr)
 	await _tr.wait()
-	alert("appr.completed")
+	alert("Approval granted successfully!")
+	chkAppr(_t)
 }
 
 async function chkAppr(_t){
@@ -631,7 +632,7 @@ async function sw(_r,_a,_f,_t,_m){
 	if(!isFinite(_a)){alert('malformed input amount!');return}
 	_a = (_a*10**DEC[_f])
 	_m = (_m*10**DEC[_t])
-	if(B<_a){alert("Not Enough Balance!\nhave="+B/10**DEC[_f]+"\nwant="+_a/10**DEC[_f]);return}
+	if(B<_a){alert("Not Enough Balance!\nYou have: "+B/10**DEC[_f]+"\nYou want: "+_a/10**DEC[_f]);return}
 	R = new ethers.Contract(_r,abir,signer);
 	let _tr = await R.swapExactTokensForTokensSupportingFeeOnTransferTokens(
 		BigInt(_a),
@@ -640,9 +641,9 @@ async function sw(_r,_a,_f,_t,_m){
 		window.ethereum.selectedAddress,
 		dead()
 	)
-	alert("sw=>"+_r+_a+_f+_t+_m)
+	alert("Transacting Direct Swap:\n"+"Router: "+_r+"\nInput Amount: "+_a/10**DEC[_f]+"\nFrom: "+_f+"\nInto: "+_t+"\nMinimum: "+_m/10**DEC[_t])
 	await _tr.wait()
-	alert("sw.completed")
+	alert("Direct Swap Completed!")
 }
 
 async function de(_a,_m,_f,_i){
@@ -650,13 +651,13 @@ async function de(_a,_m,_f,_i){
 	if(!isFinite(_a)){alert('malformed input amount!');return}
 	_a = (_a*10**DEC[_f])
 	_m = (_m*10**DEC[_i])
-	if(B<_a){alert("Not Enough Balance!\nhave="+B/10**DEC[_f]+"\nwant="+_a/10**DEC[_f]);return}
+	if(B<_a){alert("Not Enough Balance!\nYou have: "+B/10**DEC[_f]+"\nYou want: "+_a/10**DEC[_f]);return}
 	D = new ethers.Contract(DE,abix,signer)
 	console.log(BigInt(_a),slip(_m),{from:_f,into:_i,to:window.ethereum.selectedAddress})
 	let _tr = await D.swap2(BigInt(_a),slip(_m),[_f,_i])
-	alert("de=>"+_a+_m+_f+_i)
+	alert("Transacting Aggregated Swap:\n\nInput Amount: "+_a/10**DEC[_f]+"\nFrom Token: "+_f+"\nInto Token: "+_i+"\nMinimum Received: "+_m/10**DEC[_i])
 	await _tr.wait()
-	alert("de.completed")
+	alert("Aggregated Swap Completed!")
 }
 
 op_actb = true
