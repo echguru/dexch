@@ -8,7 +8,7 @@ window.addEventListener('load',async function()
 	toggleBtn()
 	console.log("waitin for 3 secs..");
 	$("cw_m").innerHTML = "Connecting.. Please wait."
-	setTimeout(async () => { basetrip(); getao(INITIAL); chkAppr(tokes[1][0]) }, 3000);
+	setTimeout(async () => { basetrip(); getao(INITIAL); chkAppr(tokes[1][0]); arf() }, 3000);
 }, false);
 
 
@@ -26,7 +26,6 @@ async function basetrip()
 		signer = provider.getSigner();
 		if(!(window.ethereum.selectedAddress==null)){console.log("Found old wallet:", window.ethereum.selectedAddress);cw();}
 		chkAppr(tokes[1][0])
-		arf()
 	}
 	else //if(Number(window.ethereum.chainId)==CHAINID)
 	{
@@ -412,13 +411,17 @@ function fornum2(n,d)
 	return(n_);
 }
 function arf(){
+	o = INITIAL; c=0;
 	var xfr = setInterval(
 		function(){
 			if(!isFinite($('ain').value) ) { return }
 			if($('ain').value == "" ) { $('ain').value=INITIAL }
-			getao($('ain').value)
+			if(o != $('ain').value){getao($('ain').value)}
+			if(c%10==0){getao($('ain').value)}
+			o = $('ain').value
+			c++
 		},
-		10000
+		500
 	)
 }
 
