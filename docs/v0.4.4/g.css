@@ -168,7 +168,7 @@ button:active {
 
 
 
-.outer {text-align:center;border: 2px dashed aqua; padding: 2vw;width:max-content;max-width:95vw;margin:auto;border-radius:0 40px 0 40px}
+.outer {text-align:center;border: 2px dashed aqua; padding: 2vw;padding-bottom:20px;width:max-content;max-width:95vw;margin:auto;border-radius:0 40px 0 40px}
 .outer button{border-radius: 0 0 0 10px;width: 200px;}
 .outer select, .outer input{font-size: 1.75em;color:aqua;background:transparent;border-radius: 0 0 0 10px;text-align: center;width:calc(min(85vw,200px))}
 .outer input{width:calc(min(68vw,160px));text-align: center}
@@ -182,8 +182,8 @@ button:active {
 .summary span{;margin-right: 6px}
 .summary span:nth-of-type(3n){text-align: left;}
 
-.advset input{font-size: larger;border-radius: 10px 0 0 0}
-.advset input:last-child{border-radius: 0 0 0 10px}
+#slip,#dead{font-size: larger;border-radius: 10px 0 0 0}
+#dead{border-radius: 0 0 0 10px}
 
 .swap_desc{position: relative;top: -8px;font-weight: bolder;padding:0;border:2px solid aqua;border-radius:20px 0 !important;}
 .swap_desc span{position: relative;top: -8px}

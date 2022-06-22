@@ -65,8 +65,9 @@
 		</div>
 -->
 
-		<div class="rsplit" style="text-align:left">
-			<span id="frame_comp"></span>
+		<br>
+		<div class="cprice" style="text-align:left">
+			<span id="frame_efprice"></span>
 		</div>
 
 		<br>
@@ -75,13 +76,18 @@
 			<button class="act-btn" id="sell-btn-0"  onclick="de($('ain').value,$('ao_1').innerText,tokes[1][0],tokes[0][0])">Swap Now</button>
 		</div>
 
-		<br>
+		<br><br>
 		<div class="advset" style="text-align:left">
 			<details>
-				<summary><b><u>Advanced Settings</b></u></summary>
+				<summary class="fore" style="font-weight: bolder;">Advanced Mode</summary>
 				<br>
 				<input id="slip" type="number" value="2" step="0.1" style="width:50px"> % Slippage<br>
 				<input id="dead" type="number" value="5" step="1"  style="width:50px" > mins. Deadline
+				<br>
+				<br><u><b>Aggregated Route</b></u><br>
+				<span id="frame_comp"></span>
+				<br><u><b>Compare Deals</b></u><br>
+				<span id="frame_deals"></span>
 			</details>
 		</div>
 

@@ -553,7 +553,7 @@ async function getao(ain)
 	$("ao_1").innerHTML = "???"
 	$("ao_2").innerHTML = "???"
 	pat=[ tokes[1][0], tokes[0][0] ]
-	ain = String(Number(ain).toFixed(tokes[0][2])).split(".").join("")
+	ain = String(Number(ain).toFixed(tokes[1][2])).split(".").join("")
 	//de = gao(ain,0,pat)
 	x = new ethers.Contract(DE,abix,provider)
 	xr = x.quote(ain,pat)
@@ -561,7 +561,7 @@ async function getao(ain)
 	ao_1 = gao(ain,0,pat)
 	ao_2 = gao(ain,2,pat)
 	Promise.all([xr,ao_1,ao_2]).then(pr=>{
-		paintRoute(pr[0],ain,pat)
+		paintRoute(pr,ain,pat)
 		$("ao_0_0").innerHTML = (Number(pr[0][1])/1e18).toFixed(5)
 		$("ao_0").value = (Number(pr[0][1])/1e18).toFixed(5)
 		$("ao_1").innerHTML = (Number(pr[1])/1e18).toFixed(5)
@@ -571,19 +571,35 @@ async function getao(ain)
 
 function paintRoute(xr,ain,pat) {
 
+	console.log("xR:",xr)
+	console.log("ain",ain)
+	console.log("pat",pat)
+
+	$("frame_efprice").innerHTML = `
+		<img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}>1 ${tokes[0][1]} = <img style='height:20px;position:relative;top:4px' src=${tokes[1][3]}>${((ain/10**tokes[1][2])/(Number(xr[0][1])/10**tokes[0][2])).toFixed(6)} ${tokes[1][1]}<br>
+		<img style='height:20px;position:relative;top:4px' src=${tokes[1][3]}>1 ${tokes[1][1]} = <img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}>${((Number(xr[0][1])/10**tokes[0][2])/(ain/10**tokes[1][2])).toFixed(6)} ${tokes[0][1]}<br>
+	`
+
+		//${tokes[0][1]}<img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}> quoted for
+	$("frame_deals").innerHTML = `
+		<i><img style='height:20px;position:relative;top:4px' src=${tokes[1][3]}>${(ain/10**tokes[1][2]).toFixed(6)} ${tokes[1][1]} =</i><br>
+		<img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}>${((Number(xr[0][1])/10**tokes[0][2])).toFixed(6)} at <img style='height:20px;position:relative;top:4px' src='https://ftm.guru/icons/echguru.png'> Dexchelon<br>
+		<img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}>${((Number(xr[1])/10**tokes[0][2])).toFixed(6)} at <img style='height:20px;position:relative;top:4px' src='https://ftm.guru/icons/ecs.png'> EchSwap<br>
+		<img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}>${((Number(xr[2])/10**tokes[0][2])).toFixed(6)} at <img style='height:20px;position:relative;top:4px' src='https://ftm.guru/icons/defy.png'> DefySwap<br>
+	`
+
 	$("frame_comp").innerHTML = `
-		<br><u><b>Aggregated Route</u></b><br>
-		${(xr[0]/RUNS*100).toFixed(2)}% via <img src="https://ftm.guru/icons/ecs.png" style="height:20px;position:relative;top:4px">EchSwap<br>
-		${(100*(1-xr[0]/RUNS)).toFixed(2)}% via <img src="https://ftm.guru/icons/defy.png" style="height:20px;position:relative;top:4px">DefySwap<br>
+		${(xr[0][0]/RUNS*100).toFixed(2)}% via <img src="https://ftm.guru/icons/ecs.png" style="height:20px;position:relative;top:4px">EchSwap<br>
+		${(100*(1-xr[0][0]/RUNS)).toFixed(2)}% via <img src="https://ftm.guru/icons/defy.png" style="height:20px;position:relative;top:4px">DefySwap<br>
 	`
 
 	$("routedesc").innerHTML = `
 		Dexchelon will be Selling ${ain/10**tokes[1][2]} ${tokes[1][1]} into ${tokes[0][1]}.<br>
 		Trade will be split!<br>
-		${(xr[0]/RUNS*100).toFixed(2)}% through EchSwap,<br>
-		${(100*(1-xr[0]/RUNS)).toFixed(2)}% via DefySwap.<br>
-		Expected output is ${xr[1]/10**tokes[0][2]} ${tokes[0][1]}.<br>
-		Minimum promised amount is ${Number(slip(xr[1]))/10**tokes[0][2]} ${tokes[0][1]}
+		${(xr[0][0]/RUNS*100).toFixed(2)}% through EchSwap,<br>
+		${(100*(1-xr[0][0]/RUNS)).toFixed(2)}% via DefySwap.<br>
+		Expected output is ${xr[0][1]/10**tokes[0][2]} ${tokes[0][1]}.<br>
+		Minimum promised amount is ${Number(slip(xr[0][1]))/10**tokes[0][2]} ${tokes[0][1]}
 	`
 }
 
@@ -1196,7 +1212,7 @@ async function getQuotes() {
 	$("ao_1").innerHTML = "???"
 	$("ao_2").innerHTML = "???"
 	pat=[ tokes[1][0], tokes[0][0] ]
-	ain = String(Number(ain).toFixed(tokes[0][2])).split(".").join("")
+	ain = String(Number(ain).toFixed(tokes[1][2])).split(".").join("")
 	//de = gao(ain,0,pat)
 	x = new ethers.Contract(DE,abix,provider)
 	xr = x.quote(ain,pat)
