@@ -681,7 +681,7 @@ function slip(_m){
 }
 
 PAIRN = 1;
-function pairn() {
+async function pairn() {
 	PAIRN = PAIRN == 1 ? 0 : 1;
 	n = PAIRN
 	//alls = $("pairsel").getElementsByTagName("option");
