@@ -700,7 +700,7 @@ async function pairn() {
 	console.log("pair:n=",n,tokes[0][1],tokes[1][1])
 
 	$("ao_0").value = "0.00"
-	await Promise.all([	getao($("ain").value), getAppr(tokes[1][0]) ])
+	await Promise.all([	getao($("ain").value), chkAppr(tokes[1][0]) ])
 
 	$("img_in").src=tokes[1][3]
 	$("img_out").src=tokes[0][3]
