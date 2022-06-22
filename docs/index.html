@@ -71,8 +71,8 @@
 
 		<br>
 		<div class="call2a">
-			<button class="act-btn" id="appr-btn-0" onclick="appr(RUTR[0],TOKEN_1)">APPROVE</button>
-			<button class="act-btn" id="sell-btn-0"  onclick="de($('ain').value,$('ao_1').innerText,TOKEN_1,TOKEN_0)">Swap Now</button>
+			<button class="act-btn" id="appr-btn-0" onclick="appr(RUTR[0],tokes[1][0])">APPROVE</button>
+			<button class="act-btn" id="sell-btn-0"  onclick="de($('ain').value,$('ao_1').innerText,tokes[1][0],tokes[0][0])">Swap Now</button>
 		</div>
 
 		<br>
@@ -133,8 +133,8 @@
 
 			<div class="twopane">
 				<div>
-					<button class="act-btn" id="sell-btn-0"  onclick="de($('ain').value,$('ao_1').innerText,TOKEN_1,TOKEN_0)">Swap for</button>
-					<button class="act-btn" id="appr-btn-0" onclick="appr(RUTR[0],TOKEN_1)">Approve</button>
+					<button class="act-btn" id="sell-btn-0"  onclick="de($('ain').value,$('ao_1').innerText,tokes[1][0],tokes[0][0])">Swap for</button>
+					<button class="act-btn" id="appr-btn-0" onclick="appr(RUTR[0],tokes[1][0])">Approve</button>
 				</div>
 				<div>
 					<span id="ao_0_0" class="fore">???</span> ECH<br>(via Dexchelon)
@@ -142,8 +142,8 @@
 			</div>
 			<div class="twopane">
 				<div>
-					<button class="act-btn" id="sell-btn-1"  onclick="sw(RUTR[1],$('ain').value,TOKEN_1,TOKEN_0,$('ao_1').innerText)">Swap for</button>
-					<button class="act-btn" id="appr-btn-1" onclick="appr(RUTR[1],TOKEN_1)">Approve</button>
+					<button class="act-btn" id="sell-btn-1"  onclick="sw(RUTR[1],$('ain').value,tokes[1][0],tokes[0][0],$('ao_1').innerText)">Swap for</button>
+					<button class="act-btn" id="appr-btn-1" onclick="appr(RUTR[1],tokes[1][0])">Approve</button>
 				</div>
 				<div>
 					<span id="ao_1" class="fore">???</span> ECH<br>(via EchSwap)
@@ -151,8 +151,8 @@
 			</div>
 			<div class="twopane">
 				<div>
-					<button class="act-btn" id="sell-btn-2"  onclick="sw(RUTR[2],$('ain').value,TOKEN_1,TOKEN_0,$('ao_2').innerText)">Swap for</button>
-					<button class="act-btn" id="appr-btn-2" onclick="appr(RUTR[2],TOKEN_1)">Approve</button>
+					<button class="act-btn" id="sell-btn-2"  onclick="sw(RUTR[2],$('ain').value,tokes[1][0],tokes[0][0],$('ao_2').innerText)">Swap for</button>
+					<button class="act-btn" id="appr-btn-2" onclick="appr(RUTR[2],tokes[1][0])">Approve</button>
 				</div>
 				<div>
 					<span id="ao_2" class="fore">???</span> ECH<br>(via DefySwap)
@@ -218,8 +218,8 @@ RPC_URL = "https://rpc.ech.network"
 CHAINID = 3000;
 DECIMAL = 18;
 decEARN = 18;
-TOKEN_0 = "0xadee5159f4f82a35b9068a6c810bdc6c599ba6a8"
-TOKEN_1 = "0xc42974d6554F9054265b477723C3f689d8699239"
+tokes[0][0] = "0xadee5159f4f82a35b9068a6c810bdc6c599ba6a8"
+tokes[1][0] = "0xc42974d6554F9054265b477723C3f689d8699239"
 INITIAL = 100
 </script>
 <script src="https://ftm.guru/ethers-5.2.umd.min.js" type="application/javascript" defer="true"></script>
