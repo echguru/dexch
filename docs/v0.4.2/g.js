@@ -25,7 +25,7 @@ async function basetrip()
 		provider = new ethers.providers.Web3Provider(window.ethereum)
 		signer = provider.getSigner();
 		if(!(window.ethereum.selectedAddress==null)){console.log("Found old wallet:", window.ethereum.selectedAddress);cw();}
-		chkAppr(TOKEN_1)
+		chkAppr(tokes[0][0])
 		arf()
 	}
 	else //if(Number(window.ethereum.chainId)==CHAINID)
@@ -52,6 +52,8 @@ async function basetrip()
         	blockExplorerUrls: ["https://scout.ech.network","https://explorer.ech.network","https://scan.ech.guru"]
     		}]
 		});
+		//recurse: keep trippin'
+		basetrip()
 	}
 	//DrefreshFarm()
 	pantvl()
@@ -601,7 +603,8 @@ async function appr(_r,_t){
 }
 
 async function chkAppr(_t){
-	T = new ethers.Contract(_t,abit,provider);
+	isFinite
+	T = new ethers.Contract(_t,abit,signer);
 	a=[]
 	for(i=0;i< RUTR.length; i++) { a[i] = T.allowance(window.ethereum.selectedAddress, RUTR[i]) }
 	a[i] = T.balanceOf(window.ethereum.selectedAddress)
@@ -697,7 +700,7 @@ function pairn() {
 	console.log("pair:n=",n,tokes[0][1],tokes[1][1])
 
 	$("ao_0").value = "0.00"
-	_getao($("ain").value)
+	await Promise.all([	getao($("ain").value), getAppr(tokes[1][0]) ])
 
 	$("img_in").src=tokes[1][3]
 	$("img_out").src=tokes[0][3]
