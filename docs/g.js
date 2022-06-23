@@ -8,7 +8,7 @@ window.addEventListener('load',async function()
 	toggleBtn()
 	console.log("waitin for 3 secs..");
 	$("cw_m").innerHTML = "Connecting.. Please wait."
-	setTimeout(async () => { basetrip(); getao(INITIAL); chkAppr(tokes[1][0]); arf() }, 3000);
+	setTimeout(async () => { await basetrip(); getao(INITIAL); chkAppr(tokes[1][0]); arf() }, 3000);
 }, false);
 
 
@@ -415,7 +415,7 @@ function arf(){
 	var xfr = setInterval(
 		function(){
 			if(!isFinite($('ain').value) ) { return }
-			if($('ain').value == "" ) { $('ain').value=INITIAL }
+			//if($('ain').value == "" ) { $('ain').value=INITIAL }
 			if(o != $('ain').value){getao($('ain').value)}
 			if(c%10==0){getao($('ain').value)}
 			o = $('ain').value
