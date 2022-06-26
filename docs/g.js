@@ -1182,14 +1182,14 @@ async function pairn() {
 }
 
 function gubs() {
-	t1 = new ethers.Contract(tokes[0][0],pa,signer);
-	t0 = new ethers.Contract(tokes[1][0],pa,signer);
+	t0 = new ethers.Contract(tokes[0][0],pa,signer);
+	t1 = new ethers.Contract(tokes[1][0],pa,signer);
 	Promise.all([
-		t1.balanceOf(window.ethereum.selectedAddress),
-		t0.balanceOf(window.ethereum.selectedAddress)
+		t0.balanceOf(window.ethereum.selectedAddress),
+		t1.balanceOf(window.ethereum.selectedAddress)
 	]).then(pr=>{
-		$("bal0").innerHTML = (Number(pr[0])/10**tokes[1][2]).toFixed(5);
-		$("bal1").innerHTML = (Number(pr[1])/10**tokes[0][2]).toFixed(5);
+		$("bal0").innerHTML = (Number(pr[0])/10**tokes[0][2]).toFixed(5);
+		$("bal1").innerHTML = (Number(pr[1])/10**tokes[1][2]).toFixed(5);
 	})
 }
 
