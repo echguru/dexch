@@ -579,8 +579,8 @@ function paintRoute(xr,ain,pat) {
 	console.log("pat",pat)
 
 	$("frame_efprice").innerHTML = `
-		<img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}>1 ${tokes[0][1]} = <img style='height:20px;position:relative;top:4px' src=${tokes[1][3]}>${((ain/10**tokes[1][2])/(Number(xr[0][1])/10**tokes[0][2])).toFixed(6)} ${tokes[1][1]}<br>
-		<img style='height:20px;position:relative;top:4px' src=${tokes[1][3]}>1 ${tokes[1][1]} = <img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}>${((Number(xr[0][1])/10**tokes[0][2])/(ain/10**tokes[1][2])).toFixed(6)} ${tokes[0][1]}<br>
+		<span class="imgbox20"><img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}></span>1 ${tokes[0][1]} = <span class="imgbox20"><img style='height:20px;position:relative;top:4px' src=${tokes[1][3]}></span>${((ain/10**tokes[1][2])/(Number(xr[0][1])/10**tokes[0][2])).toFixed(6)} ${tokes[1][1]}<br>
+		<span class="imgbox20"><img style='height:20px;position:relative;top:4px' src=${tokes[1][3]}></span>1 ${tokes[1][1]} = <span class="imgbox20"><img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}></span>${((Number(xr[0][1])/10**tokes[0][2])/(ain/10**tokes[1][2])).toFixed(6)} ${tokes[0][1]}<br>
 	`
 
 		//${tokes[0][1]}<img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}> quoted for
@@ -1163,8 +1163,11 @@ async function pairn() {
 	$("img_in").src=tokes[1][3]
 	$("img_out").src=tokes[0][3]
 
-	$("swap_in").innerHTML="Sell "+tokes[1][1]
-	$("swap_out").innerHTML="Buy "+tokes[0][1]
+	//$("swap_in").innerHTML="Sell "+tokes[1][1]
+	//$("swap_out").innerHTML="Buy "+tokes[0][1]
+	$("swap_in").innerHTML=tokes[1][1]
+	$("swap_out").innerHTML=tokes[0][1]
+
 
 	await Promise.all([	getao($("ain").value), chkAppr(tokes[1][0]) ])
 
