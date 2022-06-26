@@ -396,7 +396,7 @@ async function cw2()
 	$("connect").style.display="none";
 	$("switch").style.display="block";
 	//farm_1_f_chappro()
-	//gubs();
+	gubs();
 	return(1);
 }
 function fornum2(n,d)
@@ -420,6 +420,7 @@ function arf(){
 			//if($('ain').value == "" ) { $('ain').value=INITIAL }
 			if(o != $('ain').value){getao($('ain').value)}
 			if(c%10==0){getao($('ain').value)}
+			if(c%20==0){gubs()}
 			o = $('ain').value
 			c++
 		},
@@ -1173,8 +1174,10 @@ async function pairn() {
 	$("swap_in").innerHTML=tokes[1][1]
 	$("swap_out").innerHTML=tokes[0][1]
 
+	$("bal0")="?.?????"
+	$("bal1")="?.?????"
 
-	await Promise.all([	getao($("ain").value), chkAppr(tokes[1][0]) ])
+	await Promise.all([	getao($("ain").value), chkAppr(tokes[1][0]), gubs() ])
 
 }
 
