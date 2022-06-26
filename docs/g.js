@@ -1174,8 +1174,8 @@ async function pairn() {
 	$("swap_in").innerHTML=tokes[1][1]
 	$("swap_out").innerHTML=tokes[0][1]
 
-	$("bal0")="?.?????"
-	$("bal1")="?.?????"
+	$("bal0").innerHTML="?.?????"
+	$("bal1").innerHTML="?.?????"
 
 	await Promise.all([	getao($("ain").value), chkAppr(tokes[1][0]), gubs() ])
 
