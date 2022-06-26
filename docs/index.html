@@ -23,9 +23,7 @@
 				<button onclick="cw()" id="btn-connect">Connect Wallet</button>
 			</div>
 			<div id="switch">
-				<button onclick="cw()" id="btn-switch">Switch?</button>
-				<br>
-				<span id="cw"></span>
+				<button onclick="cw()" id="btn-switch"><span id="cw"></span></button>
 			</div>
 		</div>
 	</div>
@@ -122,11 +120,10 @@
 		Current Markets: Only 1<br><br>
 		<br><br>
 		<h4>Amount to Sell (USDC)</h4>
-		<br><br>
 
 		<h3><span style="font-size:1.4em;" id="ainp">???</span> USDC gives:</h3>
 
-		<div class="twopane">
+		<div style="display: flex">
 			<div>
 				<button class="act-btn" id="sell-btn-0"  onclick="de($('ain').value,$('ao_1').innerText,tokes[1][0],tokes[0][0])">Swap for</button>
 				<button class="act-btn" id="appr-btn-0" onclick="appr(RUTR[0],tokes[1][0])">Approve</button>
@@ -135,7 +132,7 @@
 				<span id="ao_0_0" class="fore">???</span> ECH<br>(via Dexchelon)
 			</div>
 		</div>
-		<div class="twopane">
+		<div style="display: flex">
 			<div>
 				<button class="act-btn" id="sell-btn-1"  onclick="sw(RUTR[1],$('ain').value,tokes[1][0],tokes[0][0],$('ao_1').innerText)">Swap for</button>
 				<button class="act-btn" id="appr-btn-1" onclick="appr(RUTR[1],tokes[1][0])">Approve</button>
@@ -144,7 +141,7 @@
 				<span id="ao_1" class="fore">???</span> ECH<br>(via EchSwap)
 			</div>
 		</div>
-		<div class="twopane">
+		<div style="display: flex">
 			<div>
 				<button class="act-btn" id="sell-btn-2"  onclick="sw(RUTR[2],$('ain').value,tokes[1][0],tokes[0][0],$('ao_2').innerText)">Swap for</button>
 				<button class="act-btn" id="appr-btn-2" onclick="appr(RUTR[2],tokes[1][0])">Approve</button>

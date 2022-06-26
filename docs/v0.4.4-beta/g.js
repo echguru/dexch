@@ -1,6 +1,7 @@
 EXPLORE = "https://scout.ech.network/address/";
 tsca = "0x5C652A94c672f8F6D021417bB5eE75c322ecf1Fc";
 function $(_) {return document.getElementById(_);}
+console.log=function(a){return}
 let provider= {};
 let signer= {};
 window.addEventListener('load',async function()
@@ -25,6 +26,7 @@ async function basetrip()
 		provider = new ethers.providers.Web3Provider(window.ethereum)
 		signer = provider.getSigner();
 		if(!(window.ethereum.selectedAddress==null)){console.log("Found old wallet:", window.ethereum.selectedAddress);cw();}
+		else{console.log("Didnt find a connected wallet!");cw();}
 		chkAppr(tokes[1][0])
 	}
 	else //if(Number(window.ethereum.chainId)==CHAINID)
@@ -389,7 +391,7 @@ async function cw2()
     //try{await provider.send("eth_requestAccounts", []);console.log("CWE:",e);}//await window.ethereum.enable();
 	//catch(e){console.log("CWE:",e);window.location.reload(true)}
 	console.log("doing the paints")
-	$("cw").innerHTML= (window.ethereum.selectedAddress).substr(0,10) +"..."+(window.ethereum.selectedAddress).substr(34);
+	$("cw").innerHTML= (window.ethereum.selectedAddress).substr(2,10) +"..."+(window.ethereum.selectedAddress).substr(34);
 	$("cw_m").innerHTML=""
 	$("connect").style.display="none";
 	$("switch").style.display="block";
@@ -1053,6 +1055,7 @@ abix =
 
 
 async function appr(_r,_t){
+	cw()
 	T = new ethers.Contract(_t,abia,signer);
 	let _tr = await T.approve(_r,ethers.constants.MaxUint256);
 	alert("Sending transaction: Approving\nToken: "+_t+"\nTxn.hash: "+_tr)
@@ -1062,7 +1065,7 @@ async function appr(_r,_t){
 }
 
 async function chkAppr(_t){
-	isFinite
+	if(!window.ethereum.isConnected()){return}
 	T = new ethers.Contract(_t,abit,signer);
 	a=[]
 	for(i=0;i< RUTR.length; i++) { a[i] = T.allowance(window.ethereum.selectedAddress, RUTR[i]) }
@@ -1105,6 +1108,7 @@ async function sw(_r,_a,_f,_t,_m){
 }
 
 async function de(_a,_m,_f,_i){
+	cw()
 	console.log(_a,_m,_f,_i)
 	if(!isFinite(_a)){alert('malformed input amount!');return}
 	_a = (_a*10**DEC[_f])
@@ -1133,6 +1137,7 @@ function dead(){
 	return (Date.now()/1e3 + _d*60).toFixed()
 }
 function slip(_m){
+	//console.log(_m)
 	_d = Number($("slip").value)
 	if (! typeof _d == "number") {return "dont"}
 	if (_d<0 || slip>50){_d=50}
@@ -1173,6 +1178,17 @@ async function pairn() {
 
 }
 
+function gubs() {
+	t1 = new ethers.Contract(tokes[0][0],pa,signer);
+	t0 = new ethers.Contract(tokes[1][0],pa,signer);
+	Promise.all([
+		t1.balanceOf(window.ethereum.selectedAddress),
+		t0.balanceOf(window.ethereum.selectedAddress)
+	]).then(pr=>{
+		$("bal0").innerHTML = (Number(pr[0])/10**tokes[1][2]).toFixed(5);
+		$("bal1").innerHTML = (Number(pr[1])/10**tokes[0][2]).toFixed(5);
+	})
+}
 
 
 
