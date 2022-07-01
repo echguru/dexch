@@ -1142,7 +1142,7 @@ function slip(_m){
 	_d = Number($("slip").value)
 	if (! typeof _d == "number") {return "dont"}
 	if (_d<0 || slip>50){_d=50}
-	return BigInt( Number(_m) * (1-_d/100))
+	return BigInt( (Number(_m) * (1-_d/100)).toFixed())
 }
 
 PAIRN = 1;
