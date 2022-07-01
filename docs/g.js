@@ -1115,7 +1115,7 @@ async function de(_a,_m,_f,_i){
 	_m = (_m*10**DEC[_i])
 	if(B<_a){alert("Not Enough Balance!\nYou have: "+B/10**DEC[_f]+"\nYou want: "+_a/10**DEC[_f]);return}
 	D = new ethers.Contract(DE,abix,signer)
-	alert("Transacting Aggregated Swap:\n\nInput Amount: "+_a/10**DEC[_f]+"\nFrom Token: "+_f+"\nInto Token: "+_i+"\nMinimum Received: "+_m/10**DEC[_i])
+	alert("Transacting Aggregated Swap:\n\nInput Amount: "+_a/10**DEC[_f]+"\nFrom Token: "+_f+"\nInto Token: "+_i+"\nMinimum Received: "+slip(_m)/10**DEC[_i]+"\n\nPress OK to continue...")
 	let _tr = await D.swap(BigInt(_a),slip(_m),[_f,_i],window.ethereum.selectedAddress)
 	await _tr.wait()
 	alert("Aggregated Swap Completed!")
