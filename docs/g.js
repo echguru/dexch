@@ -1109,16 +1109,14 @@ async function sw(_r,_a,_f,_t,_m){
 }
 
 async function de(_a,_m,_f,_i){
-	cw()
-	console.log(_a,_m,_f,_i)
+	//cw()
 	if(!isFinite(_a)){alert('malformed input amount!');return}
 	_a = (_a*10**DEC[_f])
 	_m = (_m*10**DEC[_i])
 	if(B<_a){alert("Not Enough Balance!\nYou have: "+B/10**DEC[_f]+"\nYou want: "+_a/10**DEC[_f]);return}
 	D = new ethers.Contract(DE,abix,signer)
-	console.log(BigInt(_a),slip(_m),{from:_f,into:_i,to:window.ethereum.selectedAddress})
-	let _tr = await D.swap(BigInt(_a),slip(_m),[_f,_i],window.ethereum.selectedAddress)
 	alert("Transacting Aggregated Swap:\n\nInput Amount: "+_a/10**DEC[_f]+"\nFrom Token: "+_f+"\nInto Token: "+_i+"\nMinimum Received: "+_m/10**DEC[_i])
+	let _tr = await D.swap(BigInt(_a),slip(_m),[_f,_i],window.ethereum.selectedAddress)
 	await _tr.wait()
 	alert("Aggregated Swap Completed!")
 }
