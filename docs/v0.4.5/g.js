@@ -17,16 +17,16 @@ async function basetrip()
 {
 //if(window.ethereum&&Number(window.ethereum.chainId)==250){web3 = new Web3(web3.currentProvider);if(!(window.ethereum.selectedAddress==null)){cw()}}
 
-	if(!(window.ethereum)){$("cw_m").innerHTML = "Wallet wasn't detected!";console.log("Wallet wasn't detected!");provider = new ethers.providers.JsonRpcProvider(RPC_URL);pantvl();return}
-	else if(!Number(window.ethereum.chainId)==CHAINID){$("cw_m").innerHTML = "Wrong network! Please Switch to "+CHAINID;provider = new ethers.providers.JsonRpcProvider(RPC_URL);pantvl();return}
+	if(!(window.ethereum)){$("cw_m").innerHTML = "Wallet wasn't detected!";console.log("Wallet wasn't detected!");provider = new ethers.providers.JsonRpcProvider(RPC_URL);;pantvl();return}
+	else if(!Number(window.ethereum.chainId)==CHAINID){$("cw_m").innerHTML = "Wrong network! Please Switch to "+CHAINID;provider = new ethers.providers.Web3Provider(window.ethereum);;pantvl();return}
 	else if(//typeOf window.ethereum == Object &&Number(window.ethereum.chainId)
 		Number(window.ethereum.chainId)==CHAINID)
 	{
 		console.log("Recognized Ethereum Chain:", window.ethereum.chainId,CHAINID);
 		provider = new ethers.providers.Web3Provider(window.ethereum)
-		if(!(window.ethereum.selectedAddress==null)){console.log("Found old wallet:", window.ethereum.selectedAddress);await cw();}
-		else{console.log("Didnt find a connected wallet!");await cw();}
-		signer = window.ethereum.isConnected() ? provider.getSigner() : provider;
+		signer = provider.getSigner();
+		if(!(window.ethereum.selectedAddress==null)){console.log("Found old wallet:", window.ethereum.selectedAddress);cw();}
+		else{console.log("Didnt find a connected wallet!");cw();}
 		chkAppr(tokes[1][0])
 	}
 	else //if(Number(window.ethereum.chainId)==CHAINID)
@@ -34,7 +34,7 @@ async function basetrip()
 		console.log("Couldn't find Ethereum Provider - ",CHAINID,window.ethereum.chainId)
 		if((typeof Number(window.ethereum.chainId) == "number")){$("cw_m").innerHTML = "Wrong network! Switch from " + Number(window.ethereum.chainId)+" to "+CHAINID}
 		provider = new ethers.providers.JsonRpcProvider(RPC_URL);
-		//signer = provider.getSigner()
+		signer = provider.getSigner()
 		$("connect").innerHTML=`Wallet not found.<br><br><button onclick="window.location.reload()" id="btn-connect">Retry?</button>`;
 	}
 	if(Number(window.ethereum.chainId) != null &&(window.ethereum.chainId!=CHAINID))
@@ -1066,7 +1066,7 @@ async function appr(_r,_t){
 }
 
 async function chkAppr(_t){
-	if(window.ethereum == undefined || !window.ethereum.isConnected()){return}
+	if(!window.ethereum == undefined || !window.ethereum.isConnected()){alrt("<h3>Wallet Account unavailable!</h3>")}
 	T = new ethers.Contract(_t,abit,signer);
 	a=[]
 	for(i=0;i< RUTR.length; i++) { a[i] = T.allowance(window.ethereum.selectedAddress, RUTR[i]) }
