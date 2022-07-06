@@ -17,16 +17,16 @@ async function basetrip()
 {
 //if(window.ethereum&&Number(window.ethereum.chainId)==250){web3 = new Web3(web3.currentProvider);if(!(window.ethereum.selectedAddress==null)){cw()}}
 
-	if(!(window.ethereum)){$("cw_m").innerHTML = "Wallet wasn't detected!";console.log("Wallet wasn't detected!");provider = new ethers.providers.JsonRpcProvider(RPC_URL);;pantvl();return}
-	else if(!Number(window.ethereum.chainId)==CHAINID){$("cw_m").innerHTML = "Wrong network! Please Switch to "+CHAINID;provider = new ethers.providers.Web3Provider(window.ethereum);;pantvl();return}
+	if(!(window.ethereum)){$("cw_m").innerHTML = "Wallet wasn't detected!";console.log("Wallet wasn't detected!");provider = new ethers.providers.JsonRpcProvider(RPC_URL);pantvl();return}
+	else if(!Number(window.ethereum.chainId)==CHAINID){$("cw_m").innerHTML = "Wrong network! Please Switch to "+CHAINID;provider = new ethers.providers.JsonRpcProvider(RPC_URL);pantvl();return}
 	else if(//typeOf window.ethereum == Object &&Number(window.ethereum.chainId)
 		Number(window.ethereum.chainId)==CHAINID)
 	{
 		console.log("Recognized Ethereum Chain:", window.ethereum.chainId,CHAINID);
 		provider = new ethers.providers.Web3Provider(window.ethereum)
-		signer = provider.getSigner();
-		if(!(window.ethereum.selectedAddress==null)){console.log("Found old wallet:", window.ethereum.selectedAddress);cw();}
-		else{console.log("Didnt find a connected wallet!");cw();}
+		if(!(window.ethereum.selectedAddress==null)){console.log("Found old wallet:", window.ethereum.selectedAddress);await cw();}
+		else{console.log("Didnt find a connected wallet!");await cw();}
+		signer = window.ethereum.isConnected() ? provider.getSigner() : provider;
 		chkAppr(tokes[1][0])
 	}
 	else //if(Number(window.ethereum.chainId)==CHAINID)
@@ -34,7 +34,7 @@ async function basetrip()
 		console.log("Couldn't find Ethereum Provider - ",CHAINID,window.ethereum.chainId)
 		if((typeof Number(window.ethereum.chainId) == "number")){$("cw_m").innerHTML = "Wrong network! Switch from " + Number(window.ethereum.chainId)+" to "+CHAINID}
 		provider = new ethers.providers.JsonRpcProvider(RPC_URL);
-		signer = provider.getSigner()
+		//signer = provider.getSigner()
 		$("connect").innerHTML=`Wallet not found.<br><br><button onclick="window.location.reload()" id="btn-connect">Retry?</button>`;
 	}
 	if(Number(window.ethereum.chainId) != null &&(window.ethereum.chainId!=CHAINID))
@@ -1066,7 +1066,7 @@ async function appr(_r,_t){
 }
 
 async function chkAppr(_t){
-	if(!window.ethereum.isConnected()){return}
+	if(window.ethereum == undefined || !window.ethereum.isConnected()){return}
 	T = new ethers.Contract(_t,abit,signer);
 	a=[]
 	for(i=0;i< RUTR.length; i++) { a[i] = T.allowance(window.ethereum.selectedAddress, RUTR[i]) }
@@ -1110,15 +1110,30 @@ async function sw(_r,_a,_f,_t,_m){
 
 async function de(_a,_m,_f,_i){
 	//cw()
-	if(!isFinite(_a)){alert('malformed input amount!');return}
+	if(!isFinite(_a)){alrt('<h3>Malformed input amount!</h3>Please check the number you have <strike>dialed</strike> entered.<br><h4>Your Input:</h4>'+_a);return}
 	_a = (_a*10**DEC[_f])
 	_m = (_m*10**DEC[_i])
-	if(B<_a){alert("Not Enough Balance!\nYou have: "+B/10**DEC[_f]+"\nYou want: "+_a/10**DEC[_f]);return}
+	if(B<_a){alrt("<h3>Not Enough Balance!</h3><h4>Your Balance is:</h4> "+B/10**DEC[_f]+" "+TOKED[_f][0]+"<h4>But.. You wanted: "+_a/10**DEC[_f]+" "+TOKED[_f][0]);return}
 	D = new ethers.Contract(DE,abix,signer)
-	alert("Transacting Aggregated Swap:\n\nInput Amount: "+_a/10**DEC[_f]+"\nFrom Token: "+_f+"\nInto Token: "+_i+"\nMinimum Received: "+Number(slip(_m))/10**DEC[_i]+"\n\nPress OK to continue...")
+	alrt(`
+		<h3>Transacting Aggregated Swap</h3>
+		<h4>Amount to Sell:</h4>
+		<img style='height:20px;position:relative;top:4px' src=${tokes[1][3]}> ${_a/10**DEC[_f]} ${tokes[1][0]}
+		<h4>Expected Buy:</h4>
+		<img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}> ${_a/10**DEC[_i]} ${tokes[0][0]}
+		<h4>Minimum Received:</h4>
+		<img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}> ${Number(slip(_m))/10**DEC[_i]} ${tokes[0][0]}
+		<br>
+		<b><i>Please Confirm this transaction in your wallet</i></b>
+	`)
 	let _tr = await D.swap(BigInt(_a),slip(_m),[_f,_i],window.ethereum.selectedAddress)
-	await _tr.wait()
-	alert("Aggregated Swap Completed!")
+	_tw = await _tr.wait()
+	alrt(`
+		<h3>dExCHange Completed!</h3>
+		Bought <img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}> ${_a/10**DEC[_i]} ${tokes[0][0]} for <img style='height:20px;position:relative;top:4px' src=${tokes[1][3]}> ${_a/10**DEC[_f]} ${tokes[1][0]}.
+		<h4><a target="_blank" href="https://scout.ech.network/tx/${_tw.hash}">View on Explorer</a></h4>
+	`)
+	console.log(_tr,"\n\n\n",_tw)
 }
 
 op_actb = true
@@ -1191,7 +1206,10 @@ function gubs() {
 	})
 }
 
-
+function alrt(c) {
+	window.location = "popup1"
+	$("content1").innerHTML = c
+}
 
 
 
