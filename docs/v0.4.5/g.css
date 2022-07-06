@@ -73,6 +73,7 @@ button:active{transform: translateY(2px);background:#145}
   transition: opacity 500ms;
   visibility: hidden;
   opacity: 0;
+  overflow-y:  auto;
 }
 .overlay:target {
   visibility: visible;
@@ -98,7 +99,7 @@ button:active{transform: translateY(2px);background:#145}
   font-size: 30px;
   font-weight: bold;
   text-decoration: none;
-  color: #99f;
+  color: #789;
 }
 .popup .close:hover {
   color: #fff;

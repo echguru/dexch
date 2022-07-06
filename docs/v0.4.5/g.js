@@ -1113,19 +1113,19 @@ async function de(_a,_m,_f,_i){
 	if(!isFinite(_a)){alrt('<h3>Malformed input amount!</h3>Please check the number you have <strike>dialed</strike> entered.<br><h4>Your Input:</h4>'+_a);return}
 	_a = (_a*10**DEC[_f])
 	_m = (_m*10**DEC[_i])
-	if(B<_a){alrt("<h3>Not Enough Balance!</h3><h4>Your Balance is:</h4> "+B/10**DEC[_f]+" "+TOKED[_f][0]+"<h4>But.. You wanted: "+_a/10**DEC[_f]+" "+TOKED[_f][0]);return}
+	if(B<_a){alrt("<h3>Not Enough Balance!</h3><h4>Your Balance is:</h4> "+B/10**DEC[_f]+" "+tokes[1][1]+"<h4>But.. You wanted: "+_a/10**DEC[_f]+" "+tokes[1][1]);return}
 	D = new ethers.Contract(DE,abix,signer)
 	alrt(`
 		<h3>Order Summary</h3>
 		<b>Amount to Sell:</b><br>
 		<img style='height:20px;position:relative;top:4px' src=${tokes[1][3]}> ${_a/10**DEC[_f]} ${tokes[1][1]}<br><br>
-		<b>Expected Buy:</b><br>
-		<img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}> ${_a/10**DEC[_i]} ${tokes[0][1]}<br><br>
-		<b>Minimum Received:</b>
-		<img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}> ${Number(slip(_m))/10**DEC[_i]} ${tokes[0][0]}<br><br>
-		<b>Aggregation via</b><br>
+		<b>Expect to Buy:</b><br>
+		<img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}> ${$("ao_0").value} ${tokes[0][1]}<br><br>
+		<b>Minimum Received:</b><br>
+		<img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}> ${Number(slip(_m))/10**DEC[_i]} ${tokes[0][1]}<br><br>
+		<b>Aggregate Route:</b><br>
 		${$("frame_comp").innerHTML}<br><br>
-		<h4><i>Please Confirm this transaction in your wallet!</i></h4>
+		<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
 	`)
 	let _tr = await D.swap(BigInt(_a),slip(_m),[_f,_i],window.ethereum.selectedAddress)
 	_tw = await _tr.wait()
