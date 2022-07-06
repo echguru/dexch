@@ -1066,7 +1066,7 @@ async function appr(_r,_t){
 }
 
 async function chkAppr(_t){
-	if(!window.ethereum.isConnected()){return}
+	if(!window.ethereum == undefined || !window.ethereum.isConnected()){alrt("<h3>Wallet Account unavailable!</h3>")}
 	T = new ethers.Contract(_t,abit,signer);
 	a=[]
 	for(i=0;i< RUTR.length; i++) { a[i] = T.allowance(window.ethereum.selectedAddress, RUTR[i]) }
@@ -1110,15 +1110,31 @@ async function sw(_r,_a,_f,_t,_m){
 
 async function de(_a,_m,_f,_i){
 	//cw()
-	if(!isFinite(_a)){alert('malformed input amount!');return}
+	if(!isFinite(_a)){alrt('<h3>Malformed input amount!</h3>Please check the number you have <strike>dialed</strike> entered.<br><h4>Your Input:</h4>'+_a);return}
 	_a = (_a*10**DEC[_f])
 	_m = (_m*10**DEC[_i])
-	if(B<_a){alert("Not Enough Balance!\nYou have: "+B/10**DEC[_f]+"\nYou want: "+_a/10**DEC[_f]);return}
+	if(B<_a){alrt("<h3>Not Enough Balance!</h3><h4>Your Balance is:</h4> "+B/10**DEC[_f]+" "+TOKED[_f][0]+"<h4>But.. You wanted: "+_a/10**DEC[_f]+" "+TOKED[_f][0]);return}
 	D = new ethers.Contract(DE,abix,signer)
-	alert("Transacting Aggregated Swap:\n\nInput Amount: "+_a/10**DEC[_f]+"\nFrom Token: "+_f+"\nInto Token: "+_i+"\nMinimum Received: "+Number(slip(_m))/10**DEC[_i]+"\n\nPress OK to continue...")
+	alrt(`
+		<h3>Order Summary</h3>
+		<b>Amount to Sell:</b><br>
+		<img style='height:20px;position:relative;top:4px' src=${tokes[1][3]}> ${_a/10**DEC[_f]} ${tokes[1][1]}<br><br>
+		<b>Expected Buy:</b><br>
+		<img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}> ${_a/10**DEC[_i]} ${tokes[0][1]}<br><br>
+		<b>Minimum Received:</b>
+		<img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}> ${Number(slip(_m))/10**DEC[_i]} ${tokes[0][0]}<br><br>
+		<b>Aggregation via</b><br>
+		${$("frame_comp").innerHTML}<br><br>
+		<h4><i>Please Confirm this transaction in your wallet!</i></h4>
+	`)
 	let _tr = await D.swap(BigInt(_a),slip(_m),[_f,_i],window.ethereum.selectedAddress)
-	await _tr.wait()
-	alert("Aggregated Swap Completed!")
+	_tw = await _tr.wait()
+	alrt(`
+		<h3>dExCHange Completed!</h3>
+		Bought <img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}> ${_a/10**DEC[_i]} ${tokes[0][0]} for <img style='height:20px;position:relative;top:4px' src=${tokes[1][3]}> ${_a/10**DEC[_f]} ${tokes[1][0]}.
+		<h4><a target="_blank" href="https://scout.ech.network/tx/${_tw.hash}">View on Explorer</a></h4>
+	`)
+	console.log(_tr,"\n\n\n",_tw)
 }
 
 op_actb = true
@@ -1191,7 +1207,10 @@ function gubs() {
 	})
 }
 
-
+function alrt(c) {
+	window.location = "#note"
+	$("content1").innerHTML = c
+}
 
 
 
