@@ -1207,7 +1207,7 @@ function gubs() {
 }
 
 function alrt(c) {
-	window.location = "popup1"
+	window.location = "#note"
 	$("content1").innerHTML = c
 }
 
