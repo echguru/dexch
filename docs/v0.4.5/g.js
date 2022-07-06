@@ -1124,7 +1124,7 @@ async function de(_a,_m,_f,_i){
 		<b>Minimum Received:</b><br>
 		<img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}> ${Number(slip(_m))/10**DEC[_i]} ${tokes[0][1]}<br><br>
 		<b>Effective Price:</b><br>
-		${$("frame_efprice").innerHTML}<br><br>
+		${$("frame_efprice").innerHTML}<br>
 		<b>Aggregate Route:</b><br>
 		${$("frame_comp").innerHTML}<br><br>
 		<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
@@ -1134,7 +1134,7 @@ async function de(_a,_m,_f,_i){
 	//_tr.then( _TR => {
 		alrt(`
 			<h3>Order Submitted!</h3>
-			Buy <img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}> ${_a/10**DEC[_i]} ${tokes[0][1]}<br>
+			Buy <img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}> ${$("ao_0").value} ${tokes[0][1]}<br>
 			Sell <img style='height:20px;position:relative;top:4px' src=${tokes[1][3]}> ${_a/10**DEC[_f]} ${tokes[1][1]}<br><br>
 			<h4><a target="_blank" href="https://scout.ech.network/tx/${_tr.hash}">View on Explorer</a></h4>
 		`)
@@ -1142,9 +1142,9 @@ async function de(_a,_m,_f,_i){
 	_tw = await _tr.wait()
 	console.log(_tw)
 	alrt(`
-		<h3>dExCHange Completed!</h3>
-		Bought <img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}> ${_a/10**DEC[_i]} ${tokes[0][1]} for <img style='height:20px;position:relative;top:4px' src=${tokes[1][3]}> ${_a/10**DEC[_f]} ${tokes[1][1]}.
-		<h4><a target="_blank" href="https://scout.ech.network/tx/${_tw.hash}">View on Explorer</a></h4>
+		<h3>Order Completed!</h3>
+		Bought <img style='height:20px;position:relative;top:4px' src=${tokes[0][3]}> ${$("ao_0").value} ${tokes[0][1]} for <img style='height:20px;position:relative;top:4px' src=${tokes[1][3]}> ${_a/10**DEC[_f]} ${tokes[1][1]}.
+		<br><h4><a target="_blank" href="https://scout.ech.network/tx/${_tw.hash}">View on Explorer</a></h4>
 	`)
 	//_tr.then(console.log)
 	//_tw.then(console.log)
